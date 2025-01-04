@@ -2,6 +2,10 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+/// <summary>
+/// This importer works with .lineobj files.
+/// For a guide on how to export these files, refer to the documentation.
+/// </summary>
 [UnityEditor.AssetImporters.ScriptedImporter(1, "lineobj")]
 public class LineobjImporter : UnityEditor.AssetImporters.ScriptedImporter
 {

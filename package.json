@@ -2,7 +2,7 @@
   "name": "com.geekbrony.control-rigging",
   "version": "1.0.0",
   "displayName": "Control Rigging",
-  "description": "This package contains extra functionality to create complex rigs in Unity, using Unity's Animation Rigging package.\n\nIncluded in this package:\n- Armature assets with mappable bones, which can be shared across many character prefabs.\n- Rig assets, which can simplify the creation/reproduction of complex procedural rigs.\n- More constraints that can be used by the Animation Rigging package.",
+  "description": "This package contains extra functionality to create and maintain complex rigs in Unity, using Unity's Animation Rigging package.\n\nIncluded in this package:\n- Armature assets with mappable bones, which can be shared across many character prefabs.\n- Rig assets, which can simplify the creation/reproduction of complex procedural rigs.\n- More constraints that can be used by the Animation Rigging package.",
   "dependencies": {
     "com.unity.animation.rigging": "1.2.1",
     "com.unity.mathematics": "1.2.6",
@@ -11,8 +11,7 @@
   "keywords": [],
   "author": {
     "name": "GeekBrony",
-    "email": "example@example.com",
-    "url": "https://geek.horse/"
+    "url": "https://geekbrony.com/"
   },
   "hideInEditor": false
 }
