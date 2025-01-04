@@ -7,10 +7,12 @@ namespace ControlRigging
     [CustomEditor(typeof(ArmatureAsset))]
     public class ArmatureAssetEditor : Editor
     {
-        private SerializedProperty bonesProp;
+        private SerializedProperty _parentProp;
+        private SerializedProperty _bonesProp;
         private void OnEnable()
         {
-            bonesProp = serializedObject.FindProperty("m_Bones");
+            _bonesProp = serializedObject.FindProperty("m_Bones");
+            _parentProp = serializedObject.FindProperty("m_Parent");
         }
 
         Transform _sourceTransform;
@@ -23,7 +25,6 @@ namespace ControlRigging
                 EditorGUILayout.BeginFoldoutHeaderGroup(_importExpanded, "Import");
             if (_importExpanded)
             {
-                
                 _sourceTransform =
                     EditorGUILayout.ObjectField(new GUIContent("Source"), _sourceTransform, typeof(Transform), true) as
                         Transform;
@@ -51,23 +52,33 @@ namespace ControlRigging
                 "Yes", "No");
         }
 
+        void ParentGUI()
+        {
+            serializedObject.Update();
+            
+            EditorGUILayout.PropertyField(_parentProp);
+            
+            serializedObject.ApplyModifiedProperties();
+        }
+        
         public override void OnInspectorGUI()
         {
             ImportFoldoutGUI();
             EditorGUILayout.Separator();
 
+            ParentGUI();
+
             serializedObject.Update();
+            if (_bonesProp == null) return;
 
-            if (bonesProp == null) return;
+            _bonesProp.isExpanded =
+                EditorGUILayout.BeginFoldoutHeaderGroup(_bonesProp.isExpanded, $"Bones ({_bonesProp.arraySize})");
 
-            bonesProp.isExpanded =
-                EditorGUILayout.BeginFoldoutHeaderGroup(bonesProp.isExpanded, $"Bones ({bonesProp.arraySize})");
-
-            if (bonesProp.isExpanded)
+            if (_bonesProp.isExpanded)
             {
-                for (int idx = 0; idx < bonesProp.arraySize; ++idx)
+                for (int idx = 0; idx < _bonesProp.arraySize; ++idx)
                 {
-                    var prop = bonesProp.GetArrayElementAtIndex(idx);
+                    var prop = _bonesProp.GetArrayElementAtIndex(idx);
                     var nameProp = prop.FindPropertyRelative("name");
                     var bindPosProp = prop.FindPropertyRelative("bindPos");
 
@@ -87,7 +98,7 @@ namespace ControlRigging
                         if(!ShowDestructiveDialog())
                             return;
                         
-                        bonesProp.DeleteArrayElementAtIndex(idx);
+                        _bonesProp.DeleteArrayElementAtIndex(idx);
                         serializedObject.ApplyModifiedProperties();
                     }
                     
@@ -107,15 +118,15 @@ namespace ControlRigging
 
         void Clear()
         {
-            if (bonesProp == null)
+            if (_bonesProp == null)
                 return;
 
             serializedObject.Update();
             
-            for (int idx = bonesProp.arraySize - 1; idx > 0; --idx)
-                bonesProp.DeleteArrayElementAtIndex(idx);
+            for (int idx = _bonesProp.arraySize - 1; idx > 0; --idx)
+                _bonesProp.DeleteArrayElementAtIndex(idx);
 
-            bonesProp.arraySize = 0;
+            _bonesProp.arraySize = 0;
 
             serializedObject.ApplyModifiedProperties();
         }
@@ -127,7 +138,7 @@ namespace ControlRigging
             if(!ShowDestructiveDialog())
                 return;
             
-            if (bonesProp == null)
+            if (_bonesProp == null)
                 return;
 
             Clear();

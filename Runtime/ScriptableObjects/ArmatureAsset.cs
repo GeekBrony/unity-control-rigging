@@ -43,6 +43,20 @@ public class ArmatureAsset : ScriptableObject
         set => m_Bones = value;
     }
     
+    public IEnumerable<Bone> GetBonesRecursive()
+    {
+        // Enumerate over all bones that are in this armature.
+        foreach (var b in m_Bones)
+            yield return b;
+        
+        // Recurse to the parent armature, if exists
+        var parent = GetParent();
+        if (!parent) yield break;
+        
+        foreach (var b in parent.GetBonesRecursive())
+            yield return b;
+    }
+    
     public Bone GetBone(string boneName)
     {
         // Try to find the bone in current armature first

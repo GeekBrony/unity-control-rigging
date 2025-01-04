@@ -45,11 +45,6 @@ public class ArmatureRoot : MonoBehaviour
     }
 
     #endregion
-    
-
-    private void Awake()
-    {
-    }
 
     [SerializeField, HideInInspector]
     private ArmatureAsset m_ArmatureAsset;
@@ -85,7 +80,7 @@ public class ArmatureRoot : MonoBehaviour
         int count = 0;
         
         // Iterate through all the bones in this armature asset
-        foreach (var bone in armatureAsset.Bones)
+        foreach (var bone in armatureAsset.GetBonesRecursive())
         {
             fullArmatureBoneCount++;
             
@@ -100,17 +95,6 @@ public class ArmatureRoot : MonoBehaviour
             SetMappedBone(bone.name, boneTransform);
             count++;
         }
-        
-        /*// Iterate through all the bones in this armature asset
-        foreach (var bone in armatureAsset.Bones)
-        {
-            bool valueExists = m_MappedBones.TryGetValue(bone.name, out Transform boneTransform);
-            if (valueExists && boneTransform) continue;
-            
-            boneTransform = transforms.FirstOrDefault(t => t.name.Equals(bone.name));
-            m_MappedBones[bone.name] = boneTransform;
-            count++;
-        }*/
 
         if (count > 0)
             Debug.Log($"{ToString()} - Resolved {count} bones ({fullArmatureBoneCount} total in armature).");
