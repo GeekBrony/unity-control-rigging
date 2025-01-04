@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace ControlRigging
 {
+    /// <summary>
+    /// A struct that can be used to validate and bind an Armature's bone to a Transform.
+    /// </summary>
     [Serializable]
     public struct CachedBinding
     {

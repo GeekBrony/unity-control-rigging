@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-using Object = UnityEngine.Object;
+﻿using UnityEngine;
 
 namespace ControlRigging
 {
@@ -9,9 +7,7 @@ namespace ControlRigging
     {
         [SerializeReference]
         public IRigComponent[] Components;
-        
         public EffectorBinding[] effectors;
-        
         public ArmatureBinding[] transforms;
     }
 }

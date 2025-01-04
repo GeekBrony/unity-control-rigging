@@ -18,6 +18,7 @@ namespace ControlRigging
                 return armature.GetBone(boneName);
             }
         }
+        
         public bool IsValid => Bone != null;
     }
 }
