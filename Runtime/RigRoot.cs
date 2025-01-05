@@ -188,7 +188,7 @@ namespace ControlRigging
             EnsureConstraintRootCreated();
             
             // Iterate through all the components in the RigAsset
-            foreach (var component in asset.Components)
+            foreach (var component in asset.components)
             {
                 // If this component isn't enabled, go to next component
                 if(!component.Enabled)

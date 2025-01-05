@@ -2,12 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using ControlRigging.Utils;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 
 namespace ControlRigging
 {
@@ -24,7 +20,7 @@ namespace ControlRigging
         {
             _effectorsProp = serializedObject.FindProperty("effectors");
             _transformsProp = serializedObject.FindProperty("transforms");
-            _componentsProp = serializedObject.FindProperty("Components");
+            _componentsProp = serializedObject.FindProperty("components");
         }
 
         [SerializeField]
