@@ -270,7 +270,7 @@ namespace ControlRigging
                 HideFlags.None : HideFlags.HideInHierarchy;
         }
 
-        GameObject CreateChildObject(Transform parent, string objectName) 
+        private GameObject CreateChildObject(Transform parent, string objectName) 
         {
             GameObject o = new GameObject(objectName);
             o.transform.SetParent(parent, false);
@@ -288,6 +288,21 @@ namespace ControlRigging
             {
                 constraintRoot.gameObject.hideFlags = !hideConstraints ? 
                     HideFlags.None : HideFlags.HideInHierarchy;
+            }
+        }
+
+        /// <summary>
+        /// Iterate through the given list of ArmatureRoots and find all the RigRoot components.
+        /// </summary>
+        /// <param name="armatures">An IEnumerable of ArmatureRoot</param>
+        /// <returns>An IEnumerable of RigRoot</returns>
+        public static IEnumerable<RigRoot> GetAllRigRoots(IEnumerable<ArmatureRoot> armatures)
+        {
+            foreach (var armature in armatures)
+            {
+                var rigRoot = armature.GetComponent<RigRoot>();
+                if (rigRoot)
+                    yield return rigRoot;
             }
         }
     }
